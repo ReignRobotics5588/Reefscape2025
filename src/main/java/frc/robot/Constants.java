@@ -140,4 +140,11 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+
+  public static final class ClimberConstants {
+    // change
+    public static final int kClimberLeft = 22; 
+    public static final int kClimberRight = 21;
+    public static double kClimberSpeedLimit =0.35; 
+  }
 }
