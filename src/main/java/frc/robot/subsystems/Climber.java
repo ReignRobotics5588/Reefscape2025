@@ -5,16 +5,11 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.*;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ClimberConstants;
-import frc.robot.RobotContainer;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkBase.ResetMode; 
+import frc.robot.Configs; 
 
 /*
 * limit switch, to know when we reached a certain point
@@ -33,9 +28,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 public class Climber extends SubsystemBase {
 
   public SparkMax m_climber = new SparkMax(ClimberConstants.kClimberLeft, MotorType.kBrushless);
-  public SparkMaxConfig climber_config; 
 
-  public DigitalInput Switch = new DigitalInput(5);
   public RelativeEncoder m_encoder = m_climber.getEncoder();
 
   public Climber() {
@@ -48,20 +41,8 @@ public class Climber extends SubsystemBase {
     m_climber.setIdleMode(IdleMode.kBrake); //keeps climber in break mode from the
     // code itself :)
     */
-
-    climber_config = new SparkMaxConfig();
-
-    climber_config
-        .inverted(true)
-        .idleMode(IdleMode.kBrake);
-    climber_config.encoder
-        .positionConversionFactor(1000)
-        .velocityConversionFactor(1000);
-    climber_config.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(1.0, 0.0, 0.0);
     
-    m_climber.configure(climber_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    m_climber.configure(Configs.Climber.climber_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   @Override
@@ -69,15 +50,14 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setSpeed(double speedLeft, double speedRight) {
+  public void setSpeed(double speed) {
 
-    if ((Math.abs(speedLeft) > 0.25) || (Math.abs(speedRight))  > 0.25) {
-        m_climber.set(speedLeft*ClimberConstants.kClimberSpeedLimit);
+    if (Math.abs(speed) < 0) {
+        speed *= ClimberConstants.kClimberUpperSpeed;
+    } else {
+        speed *= ClimberConstants.kClimberDownSpeed;
     }
-  }
-
-  public boolean getSwitch() {
-    return Switch.get();
+    m_climber.set(speed);
   }
 
   public double getLeftEncoderDistance() {
