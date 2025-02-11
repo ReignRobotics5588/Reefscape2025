@@ -18,6 +18,8 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 /*
+ * COPIED FROM ARM BRANCH
+ * 
  * package frc.robot.subsystems;
 
 
@@ -47,7 +49,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 * NEO motors 
 * DIO pins
 * use NO and CLOSE
-*10 and 11
+* 10 and 11
 */
 /* 
 public class Climber extends SubsystemBase {
