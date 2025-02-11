@@ -119,6 +119,7 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1; 
     public static final double kDriveDeadband = 0.05;
   }
 
@@ -139,5 +140,14 @@ public final class Constants {
 
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
+  }
+
+  public static final class ClimberConstants {
+    // change
+    public static final int kClimberLeft = 22; 
+    public static final int kClimberRight = 21;
+    public static final double kClimberDownSpeed = 0.3;
+    public static final double kClimberUpperSpeed = 0.75;
+    public static double kClimberSpeedLimit =0.35; 
   }
 }
