@@ -143,7 +143,18 @@ public final class Constants {
     public static final double kFreeSpeedRpm = 5676;
   }
 
+  // NEED TO CHANGE!!!
+
   public static final class ElevatorConstants {
     public static final double kFreeSpeedRpm = 5676;
+    public static final double kElevatorUpperSpeed = 1; 
+    public static final double kElevatorDownSpeed = 0; 
+
+  }
+
+  public static final class ArmConstants {
+    public static final double kFreeSpeedRpm = 5676;
+    public static final double kArmUpperSpeed = 1; 
+    public static final double kArmDownSpeed = 0; 
   }
 }

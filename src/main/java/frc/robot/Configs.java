@@ -25,6 +25,23 @@ public final class Configs {
                 
     }
 
+    public static final class arm {
+        public static final SparkMaxConfig arm_config = new SparkMaxConfig();
+
+        static {
+                arm_config
+                        .inverted(true)
+                        .idleMode(IdleMode.kBrake);
+                arm_config.encoder
+                        .positionConversionFactor(1000)
+                        .velocityConversionFactor(1000);
+                arm_config.closedLoop
+                        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                        .pid(1.0, 0.0, 0.0);
+        }
+                
+    }
+
 
     public static final class MAXSwerveModule {
         public static final SparkMaxConfig drivingConfig = new SparkMaxConfig();

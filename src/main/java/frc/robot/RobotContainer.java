@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Elevator;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -34,6 +36,8 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final Arm m_robotArm = new Arm();
+  private final Elevator m_robotElevator = new Elevator();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -56,6 +60,20 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX()*.3, OIConstants.kDriveDeadband),
                 true, true),
             m_robotDrive));
+
+
+        // subsystems
+        m_robotArm.setDefaultCommand(
+        new RunCommand(
+            ()-> m_robotArm.setSpeed(
+                -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
+            , m_robotArm));
+
+        m_robotElevator.setDefaultCommand(
+        new RunCommand(
+            ()-> m_robotElevator.setSpeed(
+                -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
+            , m_robotElevator));
   }
 
   /**
