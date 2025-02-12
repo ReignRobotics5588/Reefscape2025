@@ -34,9 +34,9 @@ public final class Constants {
     public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(19);
+    public static final double kTrackWidth = Units.inchesToMeters(29.5);
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(19); // *
+    public static final double kWheelBase = Units.inchesToMeters(29.5); // *
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -51,17 +51,17 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 2;
+    public static final int kFrontLeftDrivingCanId = 8;
     public static final int kRearLeftDrivingCanId = 6;
-    public static final int kFrontRightDrivingCanId = 4;
-    public static final int kRearRightDrivingCanId = 8;
+    public static final int kFrontRightDrivingCanId = 2;
+    public static final int kRearRightDrivingCanId = 4;
 
-    public static final int kFrontLeftTurningCanId = 9;
+    public static final int kFrontLeftTurningCanId = 7;
     public static final int kRearLeftTurningCanId = 5;
-    public static final int kFrontRightTurningCanId = 3;
-    public static final int kRearRightTurningCanId = 7;
+    public static final int kFrontRightTurningCanId = 1;
+    public static final int kRearRightTurningCanId = 3;
 
-    public static final int kGyroID = 10;
+    public static final int kGyroID = 11;
 
     public static final boolean kGyroReversed = false;
   }
@@ -144,7 +144,7 @@ public final class Constants {
 
   public static final class ClimberConstants {
     // change
-    public static final int kClimberLeft = 22; 
+    public static final int kClimberLeft = 22; // change id?
     public static final int kClimberRight = 21;
     public static final double kClimberDownSpeed = 0.3;
     public static final double kClimberUpperSpeed = 0.75;
