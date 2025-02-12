@@ -20,7 +20,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 
-public class Arm {
+public class Arm extends SubsystemBase {
 
     static SparkMax m_arm = new SparkMax(DriveConstants.elevatorCANId, MotorType.kBrushless);
 

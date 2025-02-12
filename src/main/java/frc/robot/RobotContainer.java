@@ -41,7 +41,6 @@ public class RobotContainer {
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -72,7 +71,7 @@ public class RobotContainer {
         m_robotElevator.setDefaultCommand(
         new RunCommand(
             ()-> m_robotElevator.setSpeed(
-                -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
+                -MathUtil.applyDeadband(m_operatorController.getRightY(), OIConstants.kDriveDeadband))
             , m_robotElevator));
   }
 

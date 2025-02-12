@@ -19,7 +19,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 
-public class Elevator {
+public class Elevator extends SubsystemBase {
 
     static SparkMax m_elevator = new SparkMax(DriveConstants.elevatorCANId, MotorType.kBrushless);
 
