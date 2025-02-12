@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -43,7 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kBackRightChassisAngularOffset);
 
   // The gyro sensor
-  Pigeon2 m_gyro = new Pigeon2(10, "rio");
+  Pigeon2 m_gyro = new Pigeon2(DriveConstants.kGyroID, "rio");
   //GYRO MUST BE COUNTER CLOCKWISE POSITIVE 
 
   // Slew rate filter variables for controlling lateral acceleration

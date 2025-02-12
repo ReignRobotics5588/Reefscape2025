@@ -8,6 +8,23 @@ import frc.robot.Constants.ModuleConstants;
 
 public final class Configs {
 
+    public static final class Climber {
+        public static final SparkMaxConfig climber_config = new SparkMaxConfig(); 
+
+        static {
+                climber_config
+                    .inverted(true)
+                    .idleMode(IdleMode.kBrake);
+            climber_config.encoder
+                    .positionConversionFactor(1000)
+                    .velocityConversionFactor(1000);
+            climber_config.closedLoop
+                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                    .pid(1.0, 0.0, 0.0);
+        }
+    }
+
+
     public static final class elevator {
         public static final SparkMaxConfig elevator_config = new SparkMaxConfig();
 
