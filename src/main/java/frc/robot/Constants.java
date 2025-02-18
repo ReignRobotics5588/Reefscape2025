@@ -63,6 +63,8 @@ public final class Constants {
 
     public static final int kGyroID = 11;
 
+    public static final int elevatorCANId = 12; 
+
     public static final boolean kGyroReversed = false;
   }
 
@@ -149,5 +151,20 @@ public final class Constants {
     public static final double kClimberDownSpeed = 0.3;
     public static final double kClimberUpperSpeed = 0.75;
     public static double kClimberSpeedLimit =0.35; 
+  }
+
+  // NEED TO CHANGE!!!
+
+  public static final class ElevatorConstants {
+    public static final double kFreeSpeedRpm = 5676;
+    public static final double kElevatorUpperSpeed = 1; 
+    public static final double kElevatorDownSpeed = 0; 
+
+  }
+
+  public static final class ArmConstants {
+    public static final double kFreeSpeedRpm = 5676;
+    public static final double kArmUpperSpeed = 1; 
+    public static final double kArmDownSpeed = 0; 
   }
 }
