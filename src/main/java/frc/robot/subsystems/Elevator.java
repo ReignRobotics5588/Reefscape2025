@@ -6,6 +6,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.ElevatorPoints;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -13,7 +14,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import frc.robot.Configs; 
-
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -22,6 +24,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 public class Elevator extends SubsystemBase {
 
     static SparkMax m_elevator = new SparkMax(DriveConstants.elevatorCANId, MotorType.kBrushless);
+    static SparkClosedLoopController m_elevatorController = m_elevator.getClosedLoopController();
+    private static double elevatorCurrentTarget = ElevatorPoints.lvl_one;
 
     public Elevator(){
       
@@ -38,6 +42,10 @@ public class Elevator extends SubsystemBase {
       else {
         speed *= ElevatorConstants.kElevatorDownSpeed;
       }
+    }
+
+    public static void moveToSetpoint() {
+      m_elevatorController.setReference(elevatorCurrentTarget, ControlType.kMAXMotionPositionControl);
     }
     
 }

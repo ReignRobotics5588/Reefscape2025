@@ -29,15 +29,23 @@ public final class Configs {
         public static final SparkMaxConfig elevator_config = new SparkMaxConfig();
 
         static {
+                elevator_config.idleMode(IdleMode.kCoast).smartCurrentLimit(50).voltageCompensation(12);
+
                 elevator_config
-                        .inverted(true)
-                        .idleMode(IdleMode.kBrake);
+                        .closedLoop
+                        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                        // Set PID values for position control
+                        .p(0.1)
+                        .outputRange(-1, 1)
+                        .maxMotion
+                        // Set MAXMotion parameters for position control
+                        .maxVelocity(4200)
+                        .maxAcceleration(6000)
+                        .allowedClosedLoopError(0.5);
+                        //.idleMode(IdleMode.kBrake);
                 elevator_config.encoder
                         .positionConversionFactor(1000)
                         .velocityConversionFactor(1000);
-                elevator_config.closedLoop
-                        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                        .pid(1.0, 0.0, 0.0);
         }
                 
     }
@@ -46,15 +54,23 @@ public final class Configs {
         public static final SparkMaxConfig arm_config = new SparkMaxConfig();
 
         static {
+
+                arm_config.idleMode(IdleMode.kCoast).smartCurrentLimit(40).voltageCompensation(12);
+
                 arm_config
-                        .inverted(true)
-                        .idleMode(IdleMode.kBrake);
+                        .closedLoop
+                        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                        // Set PID values for position control
+                        .p(0.1)
+                        .outputRange(-1, 1)
+                        .maxMotion
+                        // Set MAXMotion parameters for position control
+                        .maxVelocity(2000)
+                        .maxAcceleration(10000)
+                        .allowedClosedLoopError(0.25); // change?
                 arm_config.encoder
                         .positionConversionFactor(1000)
                         .velocityConversionFactor(1000);
-                arm_config.closedLoop
-                        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                        .pid(1.0, 0.0, 0.0);
         }
                 
     }

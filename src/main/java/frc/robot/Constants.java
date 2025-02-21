@@ -167,4 +167,20 @@ public final class Constants {
     public static final double kArmUpperSpeed = 1; 
     public static final double kArmDownSpeed = 0; 
   }
+
+  public static final class ElevatorPoints {
+
+    public static final double lvl_one = 0; 
+    public static final double lvl_two = 0; 
+    public static final double lvl_three = 0; 
+
+  }
+
+  public static final class ArmPoints {
+
+    public static final double lvl_one = 0; 
+    public static final double lvl_two = 0; 
+    public static final double lvl_three = 0; 
+
+  }
 }
