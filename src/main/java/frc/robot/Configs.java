@@ -29,7 +29,7 @@ public final class Configs {
         public static final SparkMaxConfig elevator_config = new SparkMaxConfig();
 
         static {
-                elevator_config.idleMode(IdleMode.kCoast).smartCurrentLimit(50).voltageCompensation(12);
+                elevator_config.idleMode(IdleMode.kBrake).smartCurrentLimit(50).voltageCompensation(12);
 
                 elevator_config
                         .closedLoop

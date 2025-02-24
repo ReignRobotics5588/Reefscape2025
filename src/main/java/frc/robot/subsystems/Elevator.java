@@ -35,13 +35,7 @@ public class Elevator extends SubsystemBase {
 
 
     public static void setSpeed(double speed) {
-  
-      if (Math.abs(speed) < 0) {
-        speed *= ElevatorConstants.kElevatorUpperSpeed;
-      } 
-      else {
-        speed *= ElevatorConstants.kElevatorDownSpeed;
-      }
+      m_elevator.set(speed);
     }
 
     public static void moveToSetpoint() {

@@ -26,7 +26,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class Arm extends SubsystemBase {
 
-    static SparkMax m_arm = new SparkMax(DriveConstants.elevatorCANId, MotorType.kBrushless);
+    static SparkMax m_arm = new SparkMax(DriveConstants.armID, MotorType.kBrushless);
     static SparkClosedLoopController m_armController = m_arm.getClosedLoopController();
     private static double armCurrentTarget = ArmPoints.lvl_one;
 

@@ -82,7 +82,7 @@ public class RobotContainer {
         m_robotElevator.setDefaultCommand(
         new RunCommand(
             ()-> m_robotElevator.setSpeed(
-                -MathUtil.applyDeadband(m_operatorController.getRightY(), OIConstants.kDriveDeadband))
+                -MathUtil.applyDeadband(m_operatorController.getRightY()*.40, OIConstants.kDriveDeadband))
             , m_robotElevator));
   }
 

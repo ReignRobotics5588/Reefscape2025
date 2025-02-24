@@ -66,6 +66,7 @@ public final class Constants {
     public static final int elevatorCANId = 12; 
 
     public static final boolean kGyroReversed = false;
+    public static final int armID = 13;
   }
 
   public static final class ModuleConstants {
