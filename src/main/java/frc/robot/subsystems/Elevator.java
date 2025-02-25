@@ -13,7 +13,9 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkBase.ResetMode; 
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import frc.robot.Configs; 
+import frc.robot.Configs;
+
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
@@ -24,6 +26,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 public class Elevator extends SubsystemBase {
 
     static SparkMax m_elevator = new SparkMax(DriveConstants.elevatorCANId, MotorType.kBrushless);
+    public static final RelativeEncoder m_elevatorencoder = m_elevator.getEncoder(); 
     static SparkClosedLoopController m_elevatorController = m_elevator.getClosedLoopController();
     private static double elevatorCurrentTarget = ElevatorPoints.lvl_one;
 
@@ -40,6 +43,14 @@ public class Elevator extends SubsystemBase {
 
     public static void moveToSetpoint() {
       m_elevatorController.setReference(elevatorCurrentTarget, ControlType.kMAXMotionPositionControl);
+    }
+
+    public double getVelocity(){
+      return m_elevatorencoder.getVelocity();
+    }
+
+    public double getPosition(){
+      return m_elevatorencoder.getPosition();
     }
     
 }

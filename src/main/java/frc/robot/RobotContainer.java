@@ -26,6 +26,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
+
+import com.revrobotics.RelativeEncoder;
+
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Elevator;
 
@@ -37,10 +40,11 @@ import frc.robot.subsystems.Elevator;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final Climber m_robotClimb = new Climber();
-  private final Arm m_robotArm = new Arm();
-  private final Elevator m_robotElevator = new Elevator();
+  public static final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  public static final Climber m_robotClimb = new Climber();
+  public static final Arm m_robotArm = new Arm();
+  public static final Elevator m_robotElevator = new Elevator();
+
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -146,5 +150,26 @@ public class RobotContainer {
 
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+  }
+
+  public double getArmVelocity(){
+    return m_robotArm.getVelocity();
+  }
+  public double getElevatorVelocity(){
+    return m_robotElevator.getVelocity();
+  }
+  public double getClimberVelocity(){
+    return m_robotClimb.getVelocity();
+  }
+
+
+  public double getArmPosition(){
+    return m_robotArm.getPosition();
+  }
+  public double getElevatorPosition(){
+    return m_robotElevator.getPosition();
+  }
+  public double getClimberPosition(){
+    return m_robotClimb.getPosition();
   }
 }

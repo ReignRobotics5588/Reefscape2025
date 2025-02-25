@@ -27,8 +27,8 @@ import frc.robot.Configs;
 
 public class Climber extends SubsystemBase {
 
-  public SparkMax m_climber = new SparkMax(ClimberConstants.kClimberLeft, MotorType.kBrushless);
-
+  public static SparkMax m_climber = new SparkMax(ClimberConstants.kClimberLeft, MotorType.kBrushless);
+  public static final RelativeEncoder m_climberencoder = m_climber.getEncoder(); 
   public RelativeEncoder m_encoder = m_climber.getEncoder();
 
   public Climber() {
@@ -68,4 +68,14 @@ public class Climber extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+
+
+  public double getVelocity(){
+    return m_climberencoder.getVelocity();
+  }
+
+  public double getPosition(){
+    return m_climberencoder.getPosition();
+  }
+  
 }
