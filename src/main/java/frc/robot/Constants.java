@@ -67,6 +67,7 @@ public final class Constants {
 
     public static final boolean kGyroReversed = false;
     public static final int armID = 13;
+    public static final int intakeID = 14;
   }
 
   public static final class ModuleConstants {

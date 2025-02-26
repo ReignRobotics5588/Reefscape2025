@@ -27,7 +27,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 public class Elevator extends SubsystemBase {
 
     static SparkMax m_elevator = new SparkMax(DriveConstants.elevatorCANId, MotorType.kBrushless);
-    public static final AbsoluteEncoder m_elevatorencoder = m_elevator.getEncoder(); 
+    public static final AbsoluteEncoder m_elevatorencoder = m_elevator.getAbsoluteEncoder(); 
     static SparkClosedLoopController m_elevatorController = m_elevator.getClosedLoopController();
     private static double elevatorCurrentTarget = ElevatorPoints.lvl_one;
 

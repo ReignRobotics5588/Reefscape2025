@@ -52,10 +52,12 @@ public final class Configs {
 
     public static final class arm {
         public static final SparkMaxConfig arm_config = new SparkMaxConfig();
+        public static final SparkMaxConfig intake_config = new SparkMaxConfig(); 
 
         static {
 
                 arm_config.idleMode(IdleMode.kCoast).smartCurrentLimit(40).voltageCompensation(12);
+                intake_config.idleMode(IdleMode.kCoast).smartCurrentLimit(40).voltageCompensation(12);
 
                 arm_config
                         .closedLoop
@@ -69,6 +71,22 @@ public final class Configs {
                         .maxAcceleration(10000)
                         .allowedClosedLoopError(0.25); // change?
                 arm_config.encoder
+                        .positionConversionFactor(1000)
+                        .velocityConversionFactor(1000);
+
+
+                intake_config
+                        .closedLoop
+                        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                        // Set PID values for position control
+                        .p(0.1)
+                        .outputRange(-1, 1)
+                        .maxMotion
+                        // Set MAXMotion parameters for position control
+                        .maxVelocity(2000)
+                        .maxAcceleration(10000)
+                        .allowedClosedLoopError(0.25); // change?
+                intake_config.encoder
                         .positionConversionFactor(1000)
                         .velocityConversionFactor(1000);
         }

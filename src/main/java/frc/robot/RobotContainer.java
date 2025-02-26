@@ -79,7 +79,7 @@ public class RobotContainer {
         // subsystems
         m_robotArm.setDefaultCommand(
         new RunCommand(
-            ()-> m_robotArm.setSpeed(
+            ()-> m_robotArm.setArmSpeed(
                 -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
             , m_robotArm));
 
