@@ -93,11 +93,11 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Arm Velocity", m_robotContainer.getArmVelocity()); 
     SmartDashboard.putNumber("Elevator Velocity", m_robotContainer.getElevatorVelocity()); 
-    SmartDashboard.putNumber("Climb Velocity", m_robotContainer.getClimberVelocity()); 
+    //SmartDashboard.putNumber("Climb Velocity", m_robotContainer.getClimberVelocity()); 
 
     SmartDashboard.putNumber("Arm Position", m_robotContainer.getArmPosition()); 
     SmartDashboard.putNumber("Elevator Position", m_robotContainer.getElevatorPosition()); 
-    SmartDashboard.putNumber("Climb Position", m_robotContainer.getClimberPosition()); 
+    //SmartDashboard.putNumber("Climb Position", m_robotContainer.getClimberPosition()); 
   }
 
   @Override
