@@ -21,7 +21,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Climber; 
+// import frc.robot.subsystems.Climber; 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -42,7 +42,7 @@ import frc.robot.subsystems.Elevator;
 public class RobotContainer {
   // The robot's subsystems
   public static final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  public static final Climber m_robotClimb = new Climber();
+  // public static final Climber m_robotClimb = new Climber();
   public static final Arm m_robotArm = new Arm();
   public static final Elevator m_robotElevator = new Elevator();
 
@@ -58,11 +58,15 @@ public class RobotContainer {
     configureButtonBindings();
     DriverStation.silenceJoystickConnectionWarning(true); // change for comp
 
+    /** 
+
     m_robotClimb.setDefaultCommand(
         new RunCommand(
             ()-> m_robotClimb.setSpeed(
                 -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
             ,m_robotClimb));
+
+    */
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -168,9 +172,11 @@ public class RobotContainer {
   public double getElevatorVelocity(){
     return m_robotElevator.getVelocity();
   }
+  /**
   public double getClimberVelocity(){
     return m_robotClimb.getVelocity();
   }
+  */
 
 
   public double getArmPosition(){
@@ -179,7 +185,9 @@ public class RobotContainer {
   public double getElevatorPosition(){
     return m_robotElevator.getPosition();
   }
+  /**
   public double getClimberPosition(){
     return m_robotClimb.getPosition();
   }
+  */
 }
