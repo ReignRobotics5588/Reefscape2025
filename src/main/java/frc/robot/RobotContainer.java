@@ -16,6 +16,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -104,6 +105,15 @@ public class RobotContainer {
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
+    new JoystickButton(m_operatorController, Button.kL1.value)
+      .whileTrue(new RunCommand(
+            () -> m_robotArm.setIntakeSpeed(ArmConstants.kArmUpperSpeed),
+            m_robotArm));
+    new JoystickButton(m_operatorController, Button.kL2.value)
+      .whileTrue(new RunCommand(
+            () -> m_robotArm.setIntakeSpeed(ArmConstants.kArmDownSpeed),
+            m_robotArm));
+
   }
 
   /**

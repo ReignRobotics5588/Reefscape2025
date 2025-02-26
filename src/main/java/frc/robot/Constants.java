@@ -166,8 +166,8 @@ public final class Constants {
 
   public static final class ArmConstants {
     public static final double kFreeSpeedRpm = 5676;
-    public static final double kArmUpperSpeed = 1; 
-    public static final double kArmDownSpeed = 0; 
+    public static final double kArmUpperSpeed = .6; 
+    public static final double kArmDownSpeed = -.6; 
   }
 
   public static final class ElevatorPoints {
