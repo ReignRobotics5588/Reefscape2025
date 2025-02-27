@@ -56,7 +56,7 @@ public final class Configs {
 
         static {
 
-                arm_config.idleMode(IdleMode.kCoast).smartCurrentLimit(40).voltageCompensation(12);
+                arm_config.idleMode(IdleMode.kBrake).smartCurrentLimit(40).voltageCompensation(12);
                 intake_config.idleMode(IdleMode.kCoast).smartCurrentLimit(40).voltageCompensation(12);
 
                 arm_config

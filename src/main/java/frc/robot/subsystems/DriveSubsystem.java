@@ -248,6 +248,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   Rotation2d getGyroAngle()
   {
-    return Rotation2d.fromDegrees((m_gyro.getAngle()-90) % 360 * -1);
+    return Rotation2d.fromDegrees((m_gyro.getAngle()) % 360 * -1);
   }
 }

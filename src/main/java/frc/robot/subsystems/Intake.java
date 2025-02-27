@@ -25,37 +25,20 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 
-public class Arm extends SubsystemBase {
+public class Intake extends SubsystemBase {
 
-    public static SparkMax m_arm = new SparkMax(DriveConstants.armID, MotorType.kBrushless);
-    public static final RelativeEncoder m_armencoder = m_arm.getEncoder(); 
-    static SparkClosedLoopController m_armController = m_arm.getClosedLoopController();
-    private static double armCurrentTarget = ArmPoints.lvl_one;
+    public static SparkMax m_intake = new SparkMax(DriveConstants.intakeID, MotorType.kBrushed);
 
-
-    public Arm(){
+    public Intake(){
       
-        m_arm.configure(Configs.arm.arm_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_intake.configure(Configs.arm.arm_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
     }
 
 
-    public static void setArmSpeed(double speed) {
-  
-        m_arm.set(speed);
-      }
+      public static void setIntakeSpeed(double speed) {
 
-
-     public static void moveToSetpoint() {
-        m_armController.setReference(armCurrentTarget, ControlType.kMAXMotionPositionControl);
-      }
-
-      public double getVelocity(){
-        return m_armencoder.getVelocity();
-      }
-
-      public double getPosition(){
-        return m_armencoder.getPosition();
-      }
-    
+        m_intake.set(speed);
+      }  
     
 }

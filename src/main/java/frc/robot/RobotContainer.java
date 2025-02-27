@@ -32,6 +32,7 @@ import com.revrobotics.RelativeEncoder;
 
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -45,6 +46,7 @@ public class RobotContainer {
   // public static final Climber m_robotClimb = new Climber();
   public static final Arm m_robotArm = new Arm();
   public static final Elevator m_robotElevator = new Elevator();
+  public static final Intake m_inTake = new Intake();
 
 
   // The driver's controller
@@ -74,9 +76,9 @@ public class RobotContainer {
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
             () -> m_robotDrive.drive(
-                -MathUtil.applyDeadband(m_driverController.getLeftY()*.3, OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_driverController.getLeftX()*.3, OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_driverController.getRightX()*.3, OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getLeftY()*.55, OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getLeftX()*.55, OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getRightX()*.55, OIConstants.kDriveDeadband),
                 true, true),
             m_robotDrive));
 
@@ -85,7 +87,7 @@ public class RobotContainer {
         m_robotArm.setDefaultCommand(
         new RunCommand(
             ()-> m_robotArm.setArmSpeed(
-                -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
+                -MathUtil.applyDeadband(m_operatorController.getLeftY()*.4, OIConstants.kDriveDeadband))
             , m_robotArm));
 
         m_robotElevator.setDefaultCommand(
@@ -93,6 +95,12 @@ public class RobotContainer {
             ()-> m_robotElevator.setSpeed(
                 -MathUtil.applyDeadband(m_operatorController.getRightY()*.40, OIConstants.kDriveDeadband))
             , m_robotElevator));
+
+        m_inTake.setDefaultCommand(
+          new RunCommand(() -> m_inTake.setIntakeSpeed(0), m_inTake)
+        );
+
+       // m_robotArm.setDefaultCommand(new RunCommand(() -> m_robotArm.setIntakeSpeed(0), m_robotArm));
   }
 
   /**
@@ -111,11 +119,11 @@ public class RobotContainer {
             m_robotDrive));
     new JoystickButton(m_operatorController, Button.kL1.value)
       .whileTrue(new RunCommand(
-            () -> m_robotArm.setIntakeSpeed(ArmConstants.kArmUpperSpeed),
+            () -> m_inTake.setIntakeSpeed(ArmConstants.kArmUpperSpeed),
             m_robotArm));
-    new JoystickButton(m_operatorController, Button.kL2.value)
+    new JoystickButton(m_operatorController, Button.kR1.value)
       .whileTrue(new RunCommand(
-            () -> m_robotArm.setIntakeSpeed(ArmConstants.kArmDownSpeed),
+            () -> m_inTake.setIntakeSpeed(ArmConstants.kArmDownSpeed),
             m_robotArm));
 
   }
