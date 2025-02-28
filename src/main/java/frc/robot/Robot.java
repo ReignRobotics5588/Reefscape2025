@@ -45,6 +45,11 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+
+    // add odometry stuff
+    SmartDashboard.putNumber("Pose X Meters", m_robotContainer.m_robotDrive.getPose().getX()); 
+    SmartDashboard.putNumber("Pose Y Meters", m_robotContainer.m_robotDrive.getPose().getY()); 
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -97,7 +102,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Arm Position", m_robotContainer.getArmPosition()); 
     SmartDashboard.putNumber("Elevator Position", m_robotContainer.getElevatorPosition()); 
-    //SmartDashboard.putNumber("Climb Position", m_robotContainer.getClimberPosition()); 
+    //SmartDashboard.putNumber("Climb Position", m_robotContainer.getClimberPosition());
+    
   }
 
   @Override
