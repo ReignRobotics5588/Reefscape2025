@@ -21,8 +21,9 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
-// import frc.robot.subsystems.Climber; 
+import frc.robot.subsystems.Climber; 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -32,6 +33,7 @@ import com.revrobotics.RelativeEncoder;
 
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -42,9 +44,10 @@ import frc.robot.subsystems.Elevator;
 public class RobotContainer {
   // The robot's subsystems
   public static final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  // public static final Climber m_robotClimb = new Climber();
+  public static final Climber m_robotClimb = new Climber();
   public static final Arm m_robotArm = new Arm();
   public static final Elevator m_robotElevator = new Elevator();
+  public static final Intake m_robotintake = new Intake(); 
 
 
   // The driver's controller
@@ -58,15 +61,11 @@ public class RobotContainer {
     configureButtonBindings();
     DriverStation.silenceJoystickConnectionWarning(true); // change for comp
 
-    /** 
-
     m_robotClimb.setDefaultCommand(
         new RunCommand(
             ()-> m_robotClimb.setSpeed(
                 -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
             ,m_robotClimb));
-
-    */
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -74,10 +73,10 @@ public class RobotContainer {
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
             () -> m_robotDrive.drive(
-                -MathUtil.applyDeadband(m_driverController.getLeftY()*.3, OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_driverController.getLeftX()*.3, OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_driverController.getRightX()*.3, OIConstants.kDriveDeadband),
-                true, true),
+                -MathUtil.applyDeadband(m_driverController.getLeftY()*.9, OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getLeftX()*.9, OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getRightX()*.9, OIConstants.kDriveDeadband),
+                true),
             m_robotDrive));
 
 
@@ -85,7 +84,7 @@ public class RobotContainer {
         m_robotArm.setDefaultCommand(
         new RunCommand(
             ()-> m_robotArm.setArmSpeed(
-                -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
+                -MathUtil.applyDeadband(m_operatorController.getLeftY()*.3, OIConstants.kDriveDeadband))
             , m_robotArm));
 
         m_robotElevator.setDefaultCommand(
@@ -93,6 +92,12 @@ public class RobotContainer {
             ()-> m_robotElevator.setSpeed(
                 -MathUtil.applyDeadband(m_operatorController.getRightY()*.40, OIConstants.kDriveDeadband))
             , m_robotElevator));
+
+
+            m_robotintake.setDefaultCommand(
+              new RunCommand(
+                  ()-> m_robotintake.setSpeed(0)
+                  , m_robotintake));
   }
 
   /**
@@ -109,16 +114,23 @@ public class RobotContainer {
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
+
     new JoystickButton(m_operatorController, Button.kL1.value)
-      .whileTrue(new RunCommand(
-            () -> m_robotArm.setIntakeSpeed(ArmConstants.kArmUpperSpeed),
-            m_robotArm));
-    new JoystickButton(m_operatorController, Button.kL2.value)
-      .whileTrue(new RunCommand(
-            () -> m_robotArm.setIntakeSpeed(ArmConstants.kArmDownSpeed),
-            m_robotArm));
+        .onTrue(new RunCommand(
+            () -> m_robotintake.setSpeed(ArmConstants.kIntakeUpSpeed),
+            m_robotintake));
+
+    new JoystickButton(m_operatorController, Button.kR1.value)
+      .onTrue(new RunCommand(
+            () -> m_robotintake.setSpeed(ArmConstants.kIntakeDownSpeed),
+            m_robotintake));
+
+    new JoystickButton(m_operatorController, Button.kTriangle.value)      .onTrue(new RunCommand(
+      () -> m_robotintake.setSpeed(0),
+      m_robotintake));
 
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -126,6 +138,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    System.out.println("AUTO");
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
         AutoConstants.kMaxSpeedMetersPerSecond,
@@ -133,20 +146,24 @@ public class RobotContainer {
         // Add kinematics to ensure max speed is actually obeyed
         .setKinematics(DriveConstants.kDriveKinematics);
 
+    /** 
     // An example trajectory to follow. All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
         // End 3 meters straight ahead of where we started, facing forward
         new Pose2d(3, 0, new Rotation2d(0)),
         config);
+        //
+    */
+    
 
     var thetaController = new ProfiledPIDController(
         AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
+    /** 
     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
         exampleTrajectory,
         m_robotDrive::getPose, // Functional interface to feed supplier
@@ -158,12 +175,24 @@ public class RobotContainer {
         thetaController,
         m_robotDrive::setModuleStates,
         m_robotDrive);
+    */
+
+    return Commands.waitSeconds(2).deadlineFor(new RunCommand(
+      () -> {
+        System.out.println("RUNNING");
+        m_robotDrive.drive(
+          -0.1,
+          0.0,
+          0.0,
+          false);
+      },
+      m_robotDrive)
+    );
 
     // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    // m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
   }
 
   public double getArmVelocity(){
@@ -172,11 +201,9 @@ public class RobotContainer {
   public double getElevatorVelocity(){
     return m_robotElevator.getVelocity();
   }
-  /**
   public double getClimberVelocity(){
     return m_robotClimb.getVelocity();
   }
-  */
 
 
   public double getArmPosition(){
@@ -185,9 +212,7 @@ public class RobotContainer {
   public double getElevatorPosition(){
     return m_robotElevator.getPosition();
   }
-  /**
   public double getClimberPosition(){
     return m_robotClimb.getPosition();
   }
-  */
 }
