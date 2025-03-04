@@ -146,7 +146,7 @@ public class RobotContainer {
         // Add kinematics to ensure max speed is actually obeyed
         .setKinematics(DriveConstants.kDriveKinematics);
 
-    /** 
+    
     // An example trajectory to follow. All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
@@ -157,13 +157,12 @@ public class RobotContainer {
         new Pose2d(3, 0, new Rotation2d(0)),
         config);
         //
-    */
     
 
     var thetaController = new ProfiledPIDController(
         AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
-    /** 
+    
     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
         exampleTrajectory,
         m_robotDrive::getPose, // Functional interface to feed supplier
@@ -175,7 +174,8 @@ public class RobotContainer {
         thetaController,
         m_robotDrive::setModuleStates,
         m_robotDrive);
-    */
+    
+    /** 
 
     return Commands.waitSeconds(2).deadlineFor(new RunCommand(
       () -> {
@@ -188,11 +188,13 @@ public class RobotContainer {
       },
       m_robotDrive)
     );
+    */
 
     // Reset odometry to the starting pose of the trajectory.
-    // m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
+    return Commands.runOnce(()-> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose()));
   }
 
   public double getArmVelocity(){
