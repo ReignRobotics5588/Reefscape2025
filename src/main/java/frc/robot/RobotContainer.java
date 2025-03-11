@@ -27,7 +27,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.revrobotics.RelativeEncoder;
 
 import frc.robot.subsystems.Arm;
@@ -49,6 +53,7 @@ public class RobotContainer {
   public static final Elevator m_robotElevator = new Elevator();
   public static final Intake m_robotintake = new Intake(); 
 
+  public final SendableChooser<Command> autoChooser;
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -98,6 +103,10 @@ public class RobotContainer {
               new RunCommand(
                   ()-> m_robotintake.setSpeed(0)
                   , m_robotintake));
+
+
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData("Auto Mode", autoChooser);
   }
 
   /**
@@ -110,24 +119,28 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    SmartDashboard.putData("Blue 1", new PathPlannerAuto("Blue 1"));
+
     new JoystickButton(m_driverController, Button.kR1.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
     new JoystickButton(m_operatorController, Button.kL1.value)
-        .onTrue(new RunCommand(
+        .toggleOnTrue(new RunCommand(
             () -> m_robotintake.setSpeed(ArmConstants.kIntakeUpSpeed),
             m_robotintake));
 
     new JoystickButton(m_operatorController, Button.kR1.value)
-      .onTrue(new RunCommand(
+      .toggleOnTrue(new RunCommand(
             () -> m_robotintake.setSpeed(ArmConstants.kIntakeDownSpeed),
             m_robotintake));
 
-    new JoystickButton(m_operatorController, Button.kTriangle.value)      .onTrue(new RunCommand(
-      () -> m_robotintake.setSpeed(0),
-      m_robotintake));
+    new JoystickButton(m_operatorController, Button.kTriangle.value)      
+      .onTrue(new RunCommand(
+            () -> m_robotintake.setSpeed(0),
+            m_robotintake));
 
   }
 
@@ -193,27 +206,8 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return Commands.runOnce(()-> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose()));
+    // return Commands.runOnce(()-> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose()));
+    return autoChooser.getSelected(); 
   }
 
-  public double getArmVelocity(){
-    return m_robotArm.getVelocity();
-  }
-  public double getElevatorVelocity(){
-    return m_robotElevator.getVelocity();
-  }
-  public double getClimberVelocity(){
-    return m_robotClimb.getVelocity();
-  }
-
-
-  public double getArmPosition(){
-    return m_robotArm.getPosition();
-  }
-  public double getElevatorPosition(){
-    return m_robotElevator.getPosition();
-  }
-  public double getClimberPosition(){
-    return m_robotClimb.getPosition();
-  }
 }
