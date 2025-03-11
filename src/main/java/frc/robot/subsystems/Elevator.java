@@ -4,7 +4,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.util.WPIUtilJNI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ElevatorPoints;
 import frc.robot.Constants.DriveConstants;
@@ -30,13 +30,13 @@ public class Elevator extends SubsystemBase {
     public static final AbsoluteEncoder m_elevatorencoder = m_elevator.getAbsoluteEncoder(); 
     static SparkClosedLoopController m_elevatorController = m_elevator.getClosedLoopController();
     private static double elevatorCurrentTarget = ElevatorPoints.lvl_one;
+    public static final Servo m_servo = new Servo(1);
 
     public Elevator(){
       
         m_elevator.configure(Configs.elevator.elevator_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     }
-
 
     public static void setSpeed(double speed) {
       m_elevator.set(speed);
@@ -52,6 +52,14 @@ public class Elevator extends SubsystemBase {
 
     public double getPosition(){
       return m_elevatorencoder.getPosition();
+    }
+
+    public static void setServoPosition(double pos){
+      m_servo.set(pos); // (left) 0.0 to 1.0 (all the way over?)
+    }
+
+    public static void setServoAngle(double pos){
+      m_servo.setAngle(pos);
     }
     
 }

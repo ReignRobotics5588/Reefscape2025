@@ -292,17 +292,15 @@ public class DriveSubsystem extends SubsystemBase {
     return positions;
   }
 
-  // PATHPLANNER STUFF BEGINS HERE
-/* 
-  RobotConfig config; {
-
-  try{
-    config = RobotConfig.fromGUISettings();
-  } 
-  catch (Exception e) {
-    e.printStackTrace();
+  public ChassisSpeeds getSpeeds() {
+    return kinematics.toChassisSpeeds(getModuleStates());
   }
 
-  };
+  public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
+    ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
+
+    SwerveModuleState[] targetStates = kinematics.toSwerveModuleStates(targetSpeeds);
+    setModuleStates(targetStates);
+  }
 
 }
