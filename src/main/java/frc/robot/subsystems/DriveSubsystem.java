@@ -94,9 +94,9 @@ public class DriveSubsystem extends SubsystemBase {
     // Usage reporting for MAXSwerve template
     HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
 
-    RobotConfig config; {
-
-      try{
+    RobotConfig config;
+    
+          try{
         config = RobotConfig.fromGUISettings();
 
 
@@ -132,7 +132,6 @@ public class DriveSubsystem extends SubsystemBase {
       };
 
     
-  }
 
   @Override
   public void periodic() {
