@@ -201,7 +201,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   // PATHPLANNER STUFF BEGINS HERE
-
+/* 
   RobotConfig config; {
 
   try{
@@ -239,5 +239,5 @@ public class DriveSubsystem extends SubsystemBase {
             },
             this // Reference to this subsystem to set requirements
     );
-
+*/
 }
