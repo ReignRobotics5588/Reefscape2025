@@ -28,7 +28,6 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 public class Arm extends SubsystemBase {
 
     public static SparkMax m_arm = new SparkMax(DriveConstants.armID, MotorType.kBrushless);
-    public static SparkMax m_intake = new SparkMax(DriveConstants.intakeID, MotorType.kBrushed);
     public static final RelativeEncoder m_armencoder = m_arm.getEncoder(); 
     static SparkClosedLoopController m_armController = m_arm.getClosedLoopController();
     private static double armCurrentTarget = ArmPoints.lvl_one;
@@ -37,8 +36,7 @@ public class Arm extends SubsystemBase {
     public Arm(){
       
         m_arm.configure(Configs.arm.arm_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        m_intake.configure(Configs.arm.arm_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
+      
     }
 
 
@@ -47,10 +45,6 @@ public class Arm extends SubsystemBase {
         m_arm.set(speed);
       }
 
-      public static void setIntakeSpeed(double speed) {
-
-        m_intake.set(speed);
-      }
 
      public static void moveToSetpoint() {
         m_armController.setReference(armCurrentTarget, ControlType.kMAXMotionPositionControl);
