@@ -116,16 +116,17 @@ public class RobotContainer {
             m_robotDrive));
 
     new JoystickButton(m_operatorController, Button.kL1.value)
-        .onTrue(new RunCommand(
-            () -> m_robotintake.setSpeed(ArmConstants.kIntakeUpSpeed),
+        .onFalse (new RunCommand(
+            () -> m_robotintake.setSpeed(ArmConstants.kIntakeStopSpeed),
             m_robotintake));
 
     new JoystickButton(m_operatorController, Button.kR1.value)
-      .onTrue(new RunCommand(
-            () -> m_robotintake.setSpeed(ArmConstants.kIntakeDownSpeed),
+      .onFalse (new RunCommand(
+            () -> m_robotintake.setSpeed(ArmConstants.kIntakeStopSpeed),
             m_robotintake));
 
-    new JoystickButton(m_operatorController, Button.kTriangle.value)      .onTrue(new RunCommand(
+    new JoystickButton(m_operatorController, Button.kTriangle.value)      
+    .onTrue(new RunCommand(
       () -> m_robotintake.setSpeed(0),
       m_robotintake));
 

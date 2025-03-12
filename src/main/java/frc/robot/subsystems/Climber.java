@@ -51,12 +51,6 @@ public class Climber extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-
-    if (Math.abs(speed) < 0) {
-        speed *= ClimberConstants.kClimberUpperSpeed;
-    } else {
-        speed *= ClimberConstants.kClimberDownSpeed;
-    }
     m_climber.set(speed);
   }
 

@@ -130,6 +130,8 @@ public final class Constants {
   public static final class ArmConstants {
     public static final double kFreeSpeedRpm = 5676;
     public static final double kIntakeUpSpeed = .6; 
+    // stop
+    public static final double kIntakeStopSpeed = 0.0; 
     public static final double kIntakeDownSpeed = -.8; 
   }
 
