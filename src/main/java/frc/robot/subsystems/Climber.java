@@ -80,5 +80,9 @@ public class Climber extends SubsystemBase {
   public static void setServoAngle(double pos){
     m_servo.setAngle(pos);
   }
+
+  public static double getServoAngle(){
+    return m_servo.getPosition();
+  }
   
 }

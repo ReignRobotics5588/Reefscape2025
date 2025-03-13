@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber ("armEncoderPosition", m_robotContainer.m_robotArm.getPosition());
     SmartDashboard.putNumber ("elevatorEncoderPosition", m_robotContainer.m_robotElevator.getPosition());
+    SmartDashboard.putNumber ("servoEncoderPosition", m_robotContainer.m_robotClimb.getServoAngle());
     
     
   }
