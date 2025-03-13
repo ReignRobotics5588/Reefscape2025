@@ -27,7 +27,7 @@ import frc.robot.Configs;
 
 public class Climber extends SubsystemBase {
 
-  public static SparkMax m_climber = new SparkMax(ClimberConstants.kClimberLeft, MotorType.kBrushless);
+  public static SparkMax m_climber = new SparkMax(ClimberConstants.kClimber, MotorType.kBrushless);
   public static final RelativeEncoder m_climberencoder = m_climber.getEncoder(); 
   public RelativeEncoder m_encoder = m_climber.getEncoder();
 

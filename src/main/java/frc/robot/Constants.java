@@ -111,8 +111,7 @@ public final class Constants {
   
   public static final class ClimberConstants {
     // change
-    public static final int kClimberLeft = 22; // change id?
-    public static final int kClimberRight = 21;
+    public static final int kClimber = 22; // change id?
     public static final double kClimberDownSpeed = 0.3;
     public static final double kClimberUpperSpeed = 0.75;
     public static double kClimberSpeedLimit =0.35; 
