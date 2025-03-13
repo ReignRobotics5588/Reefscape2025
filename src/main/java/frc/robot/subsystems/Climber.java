@@ -6,6 +6,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.*;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 import com.revrobotics.spark.SparkBase.ResetMode; 
@@ -30,6 +31,7 @@ public class Climber extends SubsystemBase {
   public static SparkMax m_climber = new SparkMax(ClimberConstants.kClimber, MotorType.kBrushless);
   public static final RelativeEncoder m_climberencoder = m_climber.getEncoder(); 
   public RelativeEncoder m_encoder = m_climber.getEncoder();
+   public static final Servo m_servo = new Servo(1);
 
   public Climber() {
     /** 
@@ -77,5 +79,14 @@ public class Climber extends SubsystemBase {
   public double getPosition(){
     return m_climberencoder.getPosition();
   }
+
+  public static void setServoPosition(double pos){
+    m_servo.set(pos); // (left) 0.0 to 1.0 (all the way over?)
+  }
+
+  public static void setServoAngle(double pos){
+    m_servo.setAngle(pos);
+  }
+  
   
 }

@@ -30,7 +30,6 @@ public class Elevator extends SubsystemBase {
     public static final AbsoluteEncoder m_elevatorencoder = m_elevator.getAbsoluteEncoder(); 
     static SparkClosedLoopController m_elevatorController = m_elevator.getClosedLoopController();
     private static double elevatorCurrentTarget = ElevatorPoints.lvl_one;
-    public static final Servo m_servo = new Servo(1);
 
     public Elevator(){
       
@@ -54,12 +53,4 @@ public class Elevator extends SubsystemBase {
       return m_elevatorencoder.getPosition();
     }
 
-    public static void setServoPosition(double pos){
-      m_servo.set(pos); // (left) 0.0 to 1.0 (all the way over?)
-    }
-
-    public static void setServoAngle(double pos){
-      m_servo.setAngle(pos);
-    }
-    
 }
