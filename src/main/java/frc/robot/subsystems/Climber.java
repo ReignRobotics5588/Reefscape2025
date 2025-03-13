@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 import com.revrobotics.spark.SparkBase.ResetMode; 
 import frc.robot.Configs; 
-
+import edu.wpi.first.wpilibj.Servo;
 /*
 * limit switch, to know when we reached a certain point
 * mechanism pulls in and stops the winch
@@ -30,6 +30,7 @@ public class Climber extends SubsystemBase {
   public static SparkMax m_climber = new SparkMax(ClimberConstants.kClimberLeft, MotorType.kBrushless);
   public static final RelativeEncoder m_climberencoder = m_climber.getEncoder(); 
   public RelativeEncoder m_encoder = m_climber.getEncoder();
+  public static final Servo m_servo = new Servo(1);
 
   public Climber() {
     /** 
@@ -70,6 +71,14 @@ public class Climber extends SubsystemBase {
 
   public double getPosition(){
     return m_climberencoder.getPosition();
+  }
+
+  public static void setServoPosition(double pos){
+    m_servo.set(pos); // (left) 0.0 to 1.0 (all the way over?)
+  }
+
+  public static void setServoAngle(double pos){
+    m_servo.setAngle(pos);
   }
   
 }
