@@ -16,6 +16,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.Configs.arm;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -53,6 +54,7 @@ public class RobotContainer {
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
   XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
+  XboxController m_climberController = new XboxController(2);
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -60,12 +62,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     DriverStation.silenceJoystickConnectionWarning(true); // change for comp
-
-    m_robotClimb.setDefaultCommand(
-        new RunCommand(
-            ()-> m_robotClimb.setSpeed(
-                -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
-            ,m_robotClimb));
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -79,6 +75,12 @@ public class RobotContainer {
                 true),
             m_robotDrive));
 
+        m_robotClimb.setDefaultCommand(
+          
+        new RunCommand(
+          ()-> m_robotClimb.setSpeed(
+              -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
+          , m_robotClimb));
 
         // subsystems
         m_robotArm.setDefaultCommand(
@@ -134,6 +136,10 @@ public class RobotContainer {
       .onTrue (new RunCommand(
             () -> m_robotintake.setSpeed(ArmConstants.kIntakeUpSpeed),
             m_robotintake));
+
+
+
+
 
   }
 

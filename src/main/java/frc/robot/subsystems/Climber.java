@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 import com.revrobotics.spark.SparkBase.ResetMode; 
-import frc.robot.Configs; 
+import frc.robot.Configs;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Servo;
 /*
 * limit switch, to know when we reached a certain point
@@ -52,6 +53,12 @@ public class Climber extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
+
+    if (speed >= 0.2) {
+      speed = Constants.ClimberConstants.kClimberUpperSpeed; 
+    } else if (speed < 0) {
+      speed = Constants.ClimberConstants.kClimberDownSpeed;
+    }
     m_climber.set(speed);
   }
 
