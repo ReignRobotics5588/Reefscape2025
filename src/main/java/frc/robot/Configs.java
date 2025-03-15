@@ -60,7 +60,7 @@ public final class Configs {
         static {
                 climber_config
                     .inverted(true)
-                    .idleMode(IdleMode.kBrake);
+                    .idleMode(IdleMode.kCoast);
             climber_config.encoder
                     .positionConversionFactor(1000)
                     .velocityConversionFactor(1000);

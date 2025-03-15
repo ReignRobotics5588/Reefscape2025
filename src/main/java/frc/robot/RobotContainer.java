@@ -127,6 +127,23 @@ public class RobotContainer {
       () -> m_robotintake.setSpeed(ArmConstants.kIntakeStopSpeed),
       m_robotintake));
 
+      // button y
+      new JoystickButton(m_operatorController, Button.kTriangle.value)
+      .onTrue (new RunCommand(
+            () -> m_robotClimb.setServoPosition(1),
+            m_robotClimb));
+
+            // button A
+            new JoystickButton(m_operatorController, Button.kSquare.value)
+            .onTrue (new RunCommand(
+                  () -> m_robotClimb.setServoPosition(0.2),
+                  m_robotClimb));
+
+                  new JoystickButton(m_operatorController, Button.kCircle.value)
+                  .onTrue (new RunCommand(
+                        () -> m_robotClimb.setServoPosition(0),
+                        m_robotClimb));
+
       new JoystickButton(m_operatorController, Button.kR1.value)
       .onFalse (new RunCommand(
             () -> m_robotintake.setSpeed(ArmConstants.kIntakeStopSpeed),

@@ -30,7 +30,6 @@ public class Climber extends SubsystemBase {
 
   public static SparkMax m_climber = new SparkMax(ClimberConstants.kClimberLeft, MotorType.kBrushless);
   public static final RelativeEncoder m_climberencoder = m_climber.getEncoder(); 
-  public RelativeEncoder m_encoder = m_climber.getEncoder();
   public static final Servo m_servo = new Servo(1);
 
   public Climber() {
@@ -56,8 +55,10 @@ public class Climber extends SubsystemBase {
 
     if (speed >= 0.2) {
       speed = Constants.ClimberConstants.kClimberUpperSpeed; 
+      setServoPosition(1.0);
     } else if (speed < 0) {
-      speed = Constants.ClimberConstants.kClimberDownSpeed;
+      speed = -Constants.ClimberConstants.kClimberDownSpeed;
+      setServoPosition(-0.5);
     }
     m_climber.set(speed);
   }
