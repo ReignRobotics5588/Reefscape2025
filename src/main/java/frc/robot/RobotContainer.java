@@ -24,6 +24,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Climber; 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -35,6 +36,7 @@ import com.revrobotics.RelativeEncoder;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.servoMotor;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -49,6 +51,7 @@ public class RobotContainer {
   public static final Arm m_robotArm = new Arm();
   public static final Elevator m_robotElevator = new Elevator();
   public static final Intake m_robotintake = new Intake(); 
+  public static final servoMotor m_servo = new servoMotor();
 
 
   // The driver's controller
@@ -76,10 +79,9 @@ public class RobotContainer {
             m_robotDrive));
 
         m_robotClimb.setDefaultCommand(
-          
         new RunCommand(
           ()-> m_robotClimb.setSpeed(
-              -MathUtil.applyDeadband(m_operatorController.getLeftY(), OIConstants.kDriveDeadband))
+              -MathUtil.applyDeadband(m_climberController.getLeftY(), OIConstants.kDriveDeadband))
           , m_robotClimb));
 
         // subsystems
@@ -117,33 +119,38 @@ public class RobotContainer {
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-    new JoystickButton(m_operatorController, Button.kL1.value)
-      .onTrue (new RunCommand(
-      () -> m_robotintake.setSpeed(ArmConstants.kIntakeDownSpeed),
-      m_robotintake));
-
-    new JoystickButton(m_operatorController, Button.kL1.value)
-      .onFalse (new RunCommand(
-      () -> m_robotintake.setSpeed(ArmConstants.kIntakeStopSpeed),
-      m_robotintake));
-
+    
       // button y
-      new JoystickButton(m_operatorController, Button.kTriangle.value)
+      
+      new JoystickButton(m_climberController, Button.kTriangle.value)
       .onTrue (new RunCommand(
-            () -> m_robotClimb.setServoPosition(1),
-            m_robotClimb));
+            () -> m_servo.setServoPosition(1),
+            m_servo));
 
             // button A
-            new JoystickButton(m_operatorController, Button.kSquare.value)
+            new JoystickButton(m_climberController, Button.kSquare.value)
             .onTrue (new RunCommand(
-                  () -> m_robotClimb.setServoPosition(0.2),
-                  m_robotClimb));
+                  () -> m_servo.setServoPosition(0.2),
+                  m_servo));
 
-                  new JoystickButton(m_operatorController, Button.kCircle.value)
+                  new JoystickButton(m_climberController, Button.kCircle.value)
                   .onTrue (new RunCommand(
-                        () -> m_robotClimb.setServoPosition(0),
-                        m_robotClimb));
+                        () -> m_servo.setServoPosition(0),
+                        m_servo));
+      
+    /** 
 
+     new JoystickButton(m_climberController, Button.kTriangle.value)
+        .onTrue (new RunCommand(
+              () -> m_robotElevator.setPosition(0.42),
+                  m_robotElevator));
+
+     new JoystickButton(m_climberController, Button.kTriangle.value)
+         .onFalse (new RunCommand(
+             () -> m_robotElevator.setSpeed(0),
+                  m_robotElevator));
+    */
+        
       new JoystickButton(m_operatorController, Button.kR1.value)
       .onFalse (new RunCommand(
             () -> m_robotintake.setSpeed(ArmConstants.kIntakeStopSpeed),
@@ -154,7 +161,16 @@ public class RobotContainer {
             () -> m_robotintake.setSpeed(ArmConstants.kIntakeUpSpeed),
             m_robotintake));
 
-
+            new JoystickButton(m_operatorController, Button.kL1.value)
+            .onTrue (new RunCommand(
+            () -> m_robotintake.setSpeed(ArmConstants.kIntakeDownSpeed),
+            m_robotintake));
+      
+          new JoystickButton(m_operatorController, Button.kL1.value)
+            .onFalse (new RunCommand(
+            () -> m_robotintake.setSpeed(ArmConstants.kIntakeStopSpeed),
+            m_robotintake));
+      
 
 
 
@@ -204,26 +220,25 @@ public class RobotContainer {
         m_robotDrive::setModuleStates,
         m_robotDrive);
     
-    /** 
 
     return Commands.waitSeconds(2).deadlineFor(new RunCommand(
       () -> {
-        System.out.println("RUNNING");
+        // System.out.println("RUNNING");
         m_robotDrive.drive(
-          -0.1,
+          -0.6,
           0.0,
           0.0,
           false);
       },
       m_robotDrive)
     );
-    */
+    
 
     // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    // m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return Commands.runOnce(()-> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose()));
+    // return Commands.runOnce(()-> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose()));
   }
 
   public double getArmVelocity(){

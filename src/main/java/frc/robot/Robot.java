@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_robotContainer.m_robotArm.resetPosition(); 
   }
 
   /**
@@ -46,9 +47,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber ("armEncoderPosition", m_robotContainer.m_robotArm.getPosition());
+    SmartDashboard.putNumber ("armEncoderPosition", m_robotContainer.m_robotArm.getPosition()%1000);
     SmartDashboard.putNumber ("elevatorEncoderPosition", m_robotContainer.m_robotElevator.getPosition());
-    SmartDashboard.putNumber ("servoEncoderPosition", m_robotContainer.m_robotClimb.getServoAngle());
+    // SmartDashboard.putNumber ("servoEncoderPosition", m_robotContainer.m_robotClimb.getServoAngle());
     
     
   }
@@ -76,6 +77,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    
   }
 
   /** This function is called periodically during autonomous. */
@@ -91,6 +94,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_robotContainer.m_robotArm.resetPosition(); 
+    // m_robotContainer.m_robotElevator.resetPosition();
   }
 
   /** This function is called periodically during operator control. */

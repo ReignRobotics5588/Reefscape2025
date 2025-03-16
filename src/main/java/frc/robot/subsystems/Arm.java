@@ -57,6 +57,10 @@ public class Arm extends SubsystemBase {
       public double getPosition(){
         return m_armencoder.getPosition();
       }
+
+      public void resetPosition(){
+        m_armencoder.setPosition(0);
+      }
     
     
 }

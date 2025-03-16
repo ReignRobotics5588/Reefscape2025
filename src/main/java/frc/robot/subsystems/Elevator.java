@@ -42,6 +42,16 @@ public class Elevator extends SubsystemBase {
       m_elevator.set(speed);
     }
 
+    public static void setPosition(double pos){
+      while (m_elevatorencoder.getPosition() > pos - .1){
+        m_elevator.set(ElevatorConstants.kElevatorDownSpeed);
+      }
+      while (m_elevatorencoder.getPosition() < pos + .1){
+        m_elevator.set(ElevatorConstants.kElevatorUpperSpeed);
+      }
+
+    }
+
     public static void moveToSetpoint() {
       m_elevatorController.setReference(elevatorCurrentTarget, ControlType.kMAXMotionPositionControl);
     }
@@ -53,5 +63,6 @@ public class Elevator extends SubsystemBase {
     public double getPosition(){
       return m_elevatorencoder.getPosition();
     }
+
     
 }

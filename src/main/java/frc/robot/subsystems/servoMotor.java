@@ -26,12 +26,11 @@ import edu.wpi.first.wpilibj.Servo;
 *10 and 11
 */
 
-public class Climber extends SubsystemBase {
+public class servoMotor extends SubsystemBase {
 
-  public static SparkMax m_climber = new SparkMax(ClimberConstants.kClimberLeft, MotorType.kBrushless);
-  public static final RelativeEncoder m_climberencoder = m_climber.getEncoder(); 
+  public static final Servo m_servo = new Servo(1);
 
-  public Climber() {
+  public servoMotor() {
     /** 
     m_climber.setIdleMode(IdleMode.kBrake);
     m_encoder.setPosition(0.0);
@@ -42,7 +41,6 @@ public class Climber extends SubsystemBase {
     // code itself :)
     */
     
-    m_climber.configure(Configs.Climber.climber_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   @Override
@@ -50,19 +48,6 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setSpeed(double speed) {
-
-    if (speed >= 0.2) {
-      speed = Constants.ClimberConstants.kClimberUpperSpeed; 
-    } else if (speed < 0) {
-      speed = -Constants.ClimberConstants.kClimberDownSpeed;
-    }
-    m_climber.set(speed);
-  }
-
-  public double getLeftEncoderDistance() {
-    return (m_climber.getEncoder().getPosition() / 42);// 42 ticks in one rotation, counting how many full rotations there are :)
-  }
 
   @Override
   public void simulationPeriodic() {
@@ -70,13 +55,16 @@ public class Climber extends SubsystemBase {
   }
 
 
-  public double getVelocity(){
-    return m_climberencoder.getVelocity();
+  public static void setServoPosition(double pos){
+    m_servo.set(pos); // (left) 0.0 to 1.0 (all the way over?)
   }
 
-  public double getPosition(){
-    return m_climberencoder.getPosition();
+  public static void setServoAngle(double pos){
+    m_servo.setAngle(pos);
   }
 
+  public static double getServoAngle(){
+    return m_servo.getPosition();
+  }
   
 }
